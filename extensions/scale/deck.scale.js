@@ -162,6 +162,12 @@ works fine.
 				e.preventDefault();
 			}
 		});
+		
+		// rescale after MathJax startup process has completed
+		if(typeof(MathJax)==="object") MathJax.Hub.Register.StartupHook("End",function () {
+			window.clearTimeout(timer);
+			timer = window.setTimeout(scaleDeck, opts.scaleDebounce);
+		});		
 
 		// Enable scale on init
 		$[deck]('enableScale');
